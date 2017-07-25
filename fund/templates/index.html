@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block nav-title %}申请列表{% endblock %}
+
+{% block main_container %}
+    {% if fund_list %}
+        <ul>
+        {% for fund in fund_list %}
+            <li><a href="/fund/{{ fund.id }}/">{{ fund.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No funds are available.</p>
+    {% endif %}
+{% endblock %}

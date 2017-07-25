@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block nav-title %}{{ fund.name }} 申请详情{% endblock %}
+
+{% block main_container %}
+    <h1>当前状态:{{ fund_stat }}</h1>
+    <h3>活动名称：{{ fund.name }}</h3>
+    <h3>活动时间：{{ fund.activity_date }}</h3>
+    <h3>策划书：<a href="{{ fund.plan_file }}">点击下载</a></h3>
+    <h3>负责人：{{ fund.charger }}</h3>
+    <h3>负责人联系方式：{{ fund.charger_tel }}</h3>
+    <h3>活动成员：{{ fund.activity_member }}</h3>
+    <h3>持续时间：{{ fund.last_time }}</h3>
+    <h3>备注：{{ fund.note }}</h3>
+
+{% endblock %}
