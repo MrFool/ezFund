@@ -12,7 +12,7 @@ class Fund(models.Model):
     name = models.CharField(max_length=100)
     apply_date = models.DateTimeField('申请日期', default=timezone.now())
     activity_date = models.DateField('活动日期', default=timezone.now())
-    plan_file = models.FileField(upload_to='./upload/%y/%m/%d/plan_file')
+    plan_file = models.FileField(upload_to='%y/%m/%d/plan_file')
     charger = models.CharField(max_length=20)
     charger_tel = models.CharField(max_length=30)
     activity_member = models.CharField(max_length=500)

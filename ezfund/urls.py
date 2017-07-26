@@ -17,12 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.contrib.staticfiles import views
+from django.views.static import serve
 
 
 urlpatterns = [
     url(r'^fund/', include('fund.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^file/(?P<path>.*)$', views.serve),
+    url(r'^upload/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
 
 
