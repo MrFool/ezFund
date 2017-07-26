@@ -5,10 +5,25 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Fund
 
+from django.core.paginator import Paginator
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import EmptyPage
+
+from operator import itemgetter, attrgetter
+
 
 @login_required(login_url='/admin/')
 def index(request):
-    fund_list = Fund.objects.all()
+    fund_objects = Fund.objects.all()
+    fund_list = sorted(fund_objects, key=attrgetter('id'), reverse=True)
+    paginator = Paginator(fund_list,10)
+    page = request.GET.get('page')
+    try:
+        fund_list = paginator.page(page)
+    except PageNotAnInteger:
+        fund_list = paginator.page(1)
+    except EmptyPage:
+        fund_list = paginator.page(paginator.num_pages)
     context = {
         'username': request.user.username,
         'fund_list': fund_list,
