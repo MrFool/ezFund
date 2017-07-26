@@ -22,6 +22,7 @@ from django.contrib.staticfiles import views
 urlpatterns = [
     url(r'^fund/', include('fund.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^file/(?P<path>.*)$', views.serve),
 ]
 
 
