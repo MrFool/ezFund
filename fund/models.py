@@ -18,18 +18,25 @@ class Fund(models.Model):
     activity_member = models.CharField(max_length=500)
     last_time = models.CharField(max_length=100)
     note = models.CharField(max_length=500)
-    is_accepted_by_student = models.BooleanField(default=False)
-    is_accepted_by_teacher = models.BooleanField(default=False)
+    is_viewed_by_student = models.BooleanField(default=False)
+    is_viewed_by_teacher = models.BooleanField(default=False)
     is_objected = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
     def fund_status(self):
-        if self.is_accepted_by_student:
-            if self.is_accepted_by_teacher:
-                return u"申请成功"
+        if not self.is_objected:
+            if self.is_viewed_by_student:
+                if self.is_viewed_by_teacher:
+                    return u"申请成功"
+                else:
+                    return u"等待老师审批"
             else:
-                return u"等待老师审批"
+                return u"等待学代审批"
         else:
-            return u"等待学代审批"
+            if self.is_viewed_by_student:
+                if self.is_viewed_by_teacher:
+                    return u"团委书记否决"
+                else:
+                    return u"学代否决"
