@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.contrib.auth import authenticate, logout, login
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .models import Fund
 
@@ -27,38 +27,38 @@ def detail(request, fund_id):
     return render(request, 'detail.html', content)
 
 
-@permission_required('fund.student_approve')
-def stucon_approve(request, fund_id):
-    app_fund = get_object_or_404(Fund, pk=fund_id)
-    app_fund.is_viewed_by_student = True
-    app_fund.save()
+@login_required(login_url='/admin/')
+def approve(request, fund_id):
+    now_user = request.user
+    if now_user.has_perm(perm="fund.student_approve"):
+        app_fund = get_object_or_404(Fund, pk=fund_id)
+        app_fund.is_viewed_by_student = True
+        app_fund.save()
+    else:
+        if now_user.has_perm(perm="fund.teacher_approve"):
+            app_fund = get_object_or_404(Fund, pk=fund_id)
+            app_fund.is_viewed_by_teacher = True
+            app_fund.save()
     return detail(request, fund_id)
 
 
-@permission_required('fund.teacher_approve')
-def teacher_approve(request, fund_id):
-    app_fund = get_object_or_404(Fund, pk=fund_id)
-    app_fund.is_viewed_by_teacher = True
-    app_fund.save()
+@login_required(login_url='/admin/')
+def deny(request, fund_id):
+    now_user = request.user
+    if now_user.has_perm(perm="fund.student_approve"):
+        app_fund = get_object_or_404(Fund, pk=fund_id)
+        app_fund.is_viewed_by_student = True
+        app_fund.is_objected = True
+        app_fund.save()
+    else:
+        if now_user.has_perm(perm="fund.teacher_approve"):
+            app_fund = get_object_or_404(Fund, pk=fund_id)
+            app_fund.is_viewed_by_teacher = True
+            app_fund.is_objected = True
+            app_fund.save()
     return detail(request, fund_id)
 
 
-@permission_required('fund.student_approve')
-def stucon_deny(request, fund_id):
-    app_fund = get_object_or_404(Fund, pk=fund_id)
-    app_fund.is_viewed_by_student = True
-    app_fund.is_objected = True
-    app_fund.save()
-    return detail(request, fund_id)
-
-
-@permission_required('fund.teacher_approve')
-def teacher_deny(request, fund_id):
-    app_fund = get_object_or_404(Fund, pk=fund_id)
-    app_fund.is_viewed_by_teacher = True
-    app_fund.is_objected = True
-    app_fund.save()
-    return detail(request, fund_id)
 
 
 
