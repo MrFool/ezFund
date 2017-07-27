@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from .models import Fund
@@ -8,12 +7,25 @@ from .models import Fund
 
 @login_required(login_url='/admin/')
 def index(request):
-    fund_list = Fund.objects.all()
-    context = {
+    now_user = request.user
+    if now_user.has_perm(perm="fund.student_approve"):
+        show_add_button = False
+        fund_list = Fund.objects.reverse()
+    else:
+        if now_user.has_perm(perm="fund.teacher_approve"):
+            show_add_button = False
+            ground_list = Fund.objects.filter(is_viewed_by_student=True)
+            fund_list = ground_list.objects.filter(is_objected=False)
+        else:
+            if now_user.hasperm(perm="fund.apply_only"):
+                show_add_button = True
+                fund_list = Fund.objects.all()
+    content = {
+        'show_add_button': show_add_button,
         'username': request.user.username,
         'fund_list': fund_list,
     }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html', content)
 
 
 @login_required(login_url='/admin/')
