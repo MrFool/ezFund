@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>申请页面</title>
+
+  <!-- CSS  -->
+  <link href="css/iconfont.css" type="text/css" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="nav-extended teal lighten-2">
+    <div class="nav-wrapper container">
+      <a href="index.html" class="white-text">深圳大学学生活动经费审批系统</a>
+      <a href="index.html" data-activates="mobile-demo" class="button-collapse"><i class="iconfont icon-menu"></i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{{apply_history}}">{{username}}</a></li>
+        <li><a href="{{account.manage}}">账户管理</a></li>
+        <li><a href="{{logout}}">退出</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="{{apply_history}}">{{username}}</a></li>
+        <li><a href="{{account.manage}}">账户管理</a></li>
+        <li><a href="{{logout}}">退出</a></li>
+      </ul>
+    </div>
+    <div class="nav-content container">
+      <span class="nav-title">申请</span>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <br><br>
+          <div class="row">
+      <form action="action_page.php" method="GET" class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="activity_name" type="text" class="validate">
+            <label for="activity_name">活动名称</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="2017/01/01" id="activity_date" type="text" class="validate">
+            <label for="activity_date">活动时间</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="activity_charger" type="text" class="validate">
+            <label for="activity_charger">负责人</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="activity_charger_tel" type="text" class="validate">
+            <label for="activity_charger_tel">负责人联系电话</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="group_people" class="materialize-textarea"></textarea>
+            <label for="group_people">项目团队成员</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="activity_length" type="text" class="validate">
+            <label for="activity_length">持续时间</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="note" class="materialize-textarea"></textarea>
+            <label for="note">备注</label>
+          </div>
+        </div>
+
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>上传文件</span>
+            <input type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="上传活动经费申请表（Word文档）">
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s4 offset-s5">
+                <button class="btn waves-effect waves-light btn-large" type="submit" name="action">提交申请</button>
+            </div>
+        </div>
+      </form>
+    </div>
+
+    <br><br>
+  </div>
+
+ <footer class="page-footer grey lighten-2">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="black-text">在使用中出现问题？</h5>
+                <p class="black-text text-lighten-4">如果在使用过程中出现问题，请在学子天地公众号留言，或者在我们的值班时间（周一到周五第3~4节、第5~8节课）期间到西南综合楼112学子天地办公室告知我们的值班同学，我们将会尽快解决！</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="black-text">关注学子天地公众号</h5>
+                
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container black-text">
+            © 2017 学子天地·技术部 版权所有
+            <a class="black-text text-lighten-4 right" href="http://stu.szu.edu.cn">学子天地</a>
+            </div>
+          </div>
+        </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  </body>
+</html>

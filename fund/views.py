@@ -4,12 +4,13 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Fund
 
-
 from django.core.paginator import Paginator
 from django.core.paginator import PageNotAnInteger
 from django.core.paginator import EmptyPage
 
 from operator import itemgetter, attrgetter
+
+from .forms import FundForm
 
 
 @login_required(login_url='/admin/')
@@ -42,6 +43,16 @@ def index(request):
         'fund_list': fund_list,
     }
     return render(request, 'index.html', context)
+
+@login_required(login_url='/admin/')
+def apply(request):
+    if request.method == 'POST':
+        form = FundForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = FundForm
+    return render(request, 'apply.html', {'form':form})
 
 
 @login_required(login_url='/admin/')
