@@ -40,7 +40,7 @@
             {% endif %}
             {% for page in fund_list.paginator.page_range %}
                 {% if page == fund_list.number %}
-                    <li class="active" title='当前页:{{ page }}'><a href="#!">{{ page }}</a></li>
+                    <li class="active teal" title='当前页:{{ page }}'><a href="#!">{{ page }}</a></li>
                 {% else %}
                     <li class="waves-effect"><a href='?page={{ page }}'>{{ page }}</a></li>
                 {% endif %}
