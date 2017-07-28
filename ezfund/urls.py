@@ -29,11 +29,11 @@ urlpatterns = [
     url(r'logout_to_login/$', fund_views.logoutnlogin),
     url(r'^password_change/$', auth_views.password_change, {'template_name': 'account/password_change_form.html','post_change_redirect': 
 '/fund/?pwd=1'}, name='password_change'),
-    url(r'^password_chang_done/$', auth_views.password_change_done,{'template_name': 'account/password_change_done.html'}, name='password_change_done'),
+    url(r'^password_change_done/$', auth_views.password_change_done,{'template_name': 'account/password_change_done.html'}, name='password_change_done'),
     url(r'sign_up/$', fund_views.SignUpView, name='sign_up'),
 ]
 #password_change可以修改重定向到主页然后加一点JS特效提醒修改成功
-
+#password_change_done是修改成功后重定向的页面，如果需要可以设置
 
 if settings.DEBUG:
     urlpatterns += [
