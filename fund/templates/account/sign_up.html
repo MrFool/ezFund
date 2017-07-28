@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block nav-title %}社团注册{% endblock %}
+
+{% block main_container %}
+
+<form method = 'post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{SignUpForm}}
+    <div class="btn-container" style="margin: 0 auto; text-align:center;padding-top:50px;">
+        <button class="btn waves-effect waves-light" type="submit" name="action">提交注册</button>
+    </div>
+</form>
+
+{% endblock %}
